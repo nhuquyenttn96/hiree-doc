@@ -2,10 +2,10 @@ import { FileText, Database } from 'lucide-react';
 
 export default function Navbar({ activeTab, setActiveTab }) {
   return (
-    <nav className="navbar">
+    <nav className="navbar glass">
       <div className="navbar-brand">
         <FileText color="var(--primary)" />
-        THEO DÕI GIAO NHẬN <span style={{ whiteSpace: 'nowrap' }}>HỒ SƠ</span>
+        <span>THEO DÕI GIAO NHẬN <span style={{ whiteSpace: 'nowrap' }}>HỒ SƠ</span></span>
       </div>
       <div className="nav-links">
         <button 
