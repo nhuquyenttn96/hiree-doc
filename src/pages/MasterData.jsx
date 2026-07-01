@@ -297,8 +297,8 @@ export default function MasterData() {
         <div className="card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <h2 style={{ margin: 0 }}>Danh sách Dữ liệu gốc ({filteredProjects.length})</h2>
           
-          <div style={{ display: 'flex', gap: '1rem', flex: 1, justifyContent: 'flex-end' }}>
-            <div style={{ position: 'relative', width: '250px' }}>
+          <div style={{ display: 'flex', gap: '1rem', flex: 1, justifyContent: 'flex-end', minWidth: '200px' }}>
+            <div style={{ position: 'relative', flex: 1, maxWidth: '350px' }}>
               <input 
                 type="text" 
                 className="form-control" 

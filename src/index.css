@@ -328,6 +328,10 @@ h1, h2, h3, h4, h5, h6 {
   .master-data-layout { grid-template-columns: 1fr !important; }
 }
 
+.master-data-layout > .card {
+  min-width: 0;
+}
+
 @media (max-width: 768px) {
   .grid-cols-2 { grid-template-columns: 1fr; }
   .app-container { padding: var(--space-2); }
