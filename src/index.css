@@ -70,7 +70,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Glassmorphism */
 .glass {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -323,9 +323,16 @@ h1, h2, h3, h4, h5, h6 {
 .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
 .gap-4 { gap: 1rem; }
 
+.sticky-form {
+  position: sticky;
+  top: 7rem;
+  z-index: 10;
+}
+
 @media (max-width: 1024px) {
   .grid-cols-3 { grid-template-columns: 1fr; }
   .master-data-layout { grid-template-columns: 1fr !important; }
+  .sticky-form { position: static; }
 }
 
 .master-data-layout > .card {

@@ -196,7 +196,7 @@ export default function MasterData() {
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: '2rem', alignItems: 'start' }} className="master-data-layout">
-      <div className="card" style={{ position: 'sticky', top: '1rem' }}>
+      <div className="card sticky-form">
         <div className="card-header">
           <h2>{editingId ? 'Cập nhật Dữ liệu gốc' : 'Thêm Dữ liệu gốc'}</h2>
         </div>
