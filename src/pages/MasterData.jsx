@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { getProjects, addProject, deleteProject, addProjectsBatch, deleteProjectsBatch } from '../services/dataService';
+import { getProjects, addProject, updateProject, deleteProject, addProjectsBatch, deleteProjectsBatch } from '../services/dataService';
 import toast from 'react-hot-toast';
 import * as XLSX from 'xlsx';
-import { Upload, Plus, Trash2 } from 'lucide-react';
+import { Upload, Plus, Trash2, Edit, Search, X } from 'lucide-react';
 
 export default function MasterData() {
   const [projects, setProjects] = useState([]);
@@ -15,6 +15,8 @@ export default function MasterData() {
     contractNumber: '',
     defaultReceiver: ''
   });
+  const [editingId, setEditingId] = useState(null);
+  const [filterSearch, setFilterSearch] = useState('');
   const [selectedIds, setSelectedIds] = useState([]);
 
   useEffect(() => {
@@ -44,8 +46,15 @@ export default function MasterData() {
     }
     
     try {
-      await addProject(formData);
-      toast.success('Đã thêm dữ liệu gốc');
+      if (editingId) {
+        await updateProject(editingId, formData);
+        toast.success('Đã cập nhật dữ liệu gốc');
+        setEditingId(null);
+      } else {
+        await addProject(formData);
+        toast.success('Đã thêm dữ liệu gốc');
+      }
+      
       setFormData({
         company: 'hireeco',
         projectName: '',
@@ -55,8 +64,30 @@ export default function MasterData() {
       });
       loadProjects();
     } catch (error) {
-      toast.error('Lỗi khi thêm dữ liệu');
+      toast.error('Lỗi khi lưu dữ liệu');
     }
+  };
+
+  const handleEdit = (project) => {
+    setEditingId(project.id);
+    setFormData({
+      company: project.company || 'hireeco',
+      projectName: project.projectName || '',
+      customerName: project.customerName || '',
+      contractNumber: project.contractNumber || '',
+      defaultReceiver: project.defaultReceiver || ''
+    });
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setFormData({
+      company: 'hireeco',
+      projectName: '',
+      customerName: '',
+      contractNumber: '',
+      defaultReceiver: ''
+    });
   };
 
   const handleDelete = async (id) => {
@@ -156,11 +187,18 @@ export default function MasterData() {
     e.target.value = ''; // Reset file input
   };
 
+  const filteredProjects = projects.filter(p => 
+    (p.projectName || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
+    (p.customerName || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
+    (p.contractNumber || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
+    (p.defaultReceiver || '').toLowerCase().includes(filterSearch.toLowerCase())
+  );
+
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: '2rem', alignItems: 'start' }} className="master-data-layout">
-      <div className="card">
+      <div className="card" style={{ position: 'sticky', top: '1rem' }}>
         <div className="card-header">
-          <h2>Thêm Dữ liệu gốc</h2>
+          <h2>{editingId ? 'Cập nhật Dữ liệu gốc' : 'Thêm Dữ liệu gốc'}</h2>
         </div>
         <div className="card-body">
           <form onSubmit={handleSubmit}>
@@ -217,9 +255,21 @@ export default function MasterData() {
                 onChange={handleInputChange} 
               />
             </div>
-            <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
-              <Plus size={16} /> Thêm dữ liệu
-            </button>
+            
+            {editingId ? (
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <button type="submit" className="btn btn-primary" style={{ flex: 1 }}>
+                  Cập nhật
+                </button>
+                <button type="button" className="btn btn-secondary" onClick={cancelEdit}>
+                  Hủy
+                </button>
+              </div>
+            ) : (
+              <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
+                <Plus size={16} /> Thêm dữ liệu
+              </button>
+            )}
           </form>
 
           <hr style={{ margin: '1.5rem 0', borderColor: 'var(--border)' }} />
@@ -244,17 +294,32 @@ export default function MasterData() {
       </div>
 
       <div className="card">
-        <div className="card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h2 style={{ margin: 0 }}>Danh sách Dữ liệu gốc ({projects.length})</h2>
-          {selectedIds.length > 0 && (
-            <button 
-              className="btn" 
-              style={{ background: '#ef4444', color: 'white', display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.4rem 0.75rem' }} 
-              onClick={handleDeleteSelected}
-            >
-              <Trash2 size={16} /> Xóa {selectedIds.length} mục
-            </button>
-          )}
+        <div className="card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+          <h2 style={{ margin: 0 }}>Danh sách Dữ liệu gốc ({filteredProjects.length})</h2>
+          
+          <div style={{ display: 'flex', gap: '1rem', flex: 1, justifyContent: 'flex-end' }}>
+            <div style={{ position: 'relative', width: '250px' }}>
+              <input 
+                type="text" 
+                className="form-control" 
+                placeholder="Tìm kiếm dự án, người nhận..." 
+                value={filterSearch}
+                onChange={(e) => setFilterSearch(e.target.value)}
+                style={{ paddingLeft: '2.5rem' }}
+              />
+              <Search size={18} style={{ position: 'absolute', left: '0.85rem', top: '0.8rem', color: 'var(--text-muted)' }} />
+            </div>
+
+            {selectedIds.length > 0 && (
+              <button 
+                className="btn" 
+                style={{ background: '#ef4444', color: 'white', display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.4rem 0.75rem' }} 
+                onClick={handleDeleteSelected}
+              >
+                <Trash2 size={16} /> Xóa {selectedIds.length} mục
+              </button>
+            )}
+          </div>
         </div>
         <div className="card-body" style={{ padding: 0 }}>
           <div className="table-container">
@@ -264,7 +329,7 @@ export default function MasterData() {
                   <th style={{ width: '40px', textAlign: 'center' }}>
                     <input 
                       type="checkbox" 
-                      checked={projects.length > 0 && selectedIds.length === projects.length}
+                      checked={filteredProjects.length > 0 && selectedIds.length === filteredProjects.length}
                       onChange={handleSelectAll}
                       style={{ cursor: 'pointer', width: '1.1rem', height: '1.1rem', accentColor: 'var(--primary)' }}
                     />
@@ -280,11 +345,11 @@ export default function MasterData() {
               <tbody>
                 {loading ? (
                   <tr><td colSpan="7" style={{ textAlign: 'center' }}>Đang tải...</td></tr>
-                ) : projects.length === 0 ? (
-                  <tr><td colSpan="7" style={{ textAlign: 'center', color: 'var(--text-muted)' }}>Chưa có dữ liệu</td></tr>
+                ) : filteredProjects.length === 0 ? (
+                  <tr><td colSpan="7" style={{ textAlign: 'center', color: 'var(--text-muted)' }}>Không tìm thấy dữ liệu</td></tr>
                 ) : (
-                  projects.map(p => (
-                    <tr key={p.id} style={{ background: selectedIds.includes(p.id) ? 'var(--primary-light)' : 'transparent' }}>
+                  filteredProjects.map(p => (
+                    <tr key={p.id} style={{ background: selectedIds.includes(p.id) ? 'var(--primary-light)' : (editingId === p.id ? '#eff6ff' : 'transparent') }}>
                       <td style={{ textAlign: 'center' }}>
                         <input 
                           type="checkbox" 
@@ -303,14 +368,24 @@ export default function MasterData() {
                       <td>{p.contractNumber}</td>
                       <td>{p.defaultReceiver}</td>
                       <td style={{ textAlign: 'center' }}>
-                        <button 
-                          onClick={() => handleDelete(p.id)}
-                          className="close-btn"
-                          title="Xóa"
-                          style={{ color: '#ef4444' }}
-                        >
-                          <Trash2 size={16} />
-                        </button>
+                        <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
+                          <button 
+                            onClick={() => handleEdit(p)}
+                            className="close-btn"
+                            title="Sửa"
+                            style={{ color: 'var(--primary)' }}
+                          >
+                            <Edit size={16} />
+                          </button>
+                          <button 
+                            onClick={() => handleDelete(p.id)}
+                            className="close-btn"
+                            title="Xóa"
+                            style={{ color: '#ef4444' }}
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))
