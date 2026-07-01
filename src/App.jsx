@@ -9,7 +9,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <Toaster position="top-right" />
+      <Toaster position="top-right" containerStyle={{ zIndex: 99999 }} />
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
       
       <main>
