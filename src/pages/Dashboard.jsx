@@ -406,7 +406,17 @@ export default function Dashboard() {
                         </td>
                         <td style={{ fontSize: '0.9rem' }}>
                           <div style={{ marginBottom: '0.25rem' }}><span style={{ color: 'var(--text-muted)' }}>Gửi:</span> {doc.dateSent} <br/><span style={{ fontSize: '0.8rem' }}>({doc.sender})</span></div>
-                          <div><span style={{ color: 'var(--text-muted)' }}>Nhận lại:</span> {doc.dateReceived || '...'} <br/><span style={{ fontSize: '0.8rem' }}>({doc.receiver})</span></div>
+                          {doc.dateReceived ? (
+                            <div>
+                              <span style={{ color: 'var(--text-muted)' }}>Nhận lại:</span> <span style={{ color: 'var(--secondary-hover)', fontWeight: 600 }}>{doc.dateReceived}</span>
+                              <br/><span style={{ fontSize: '0.8rem' }}>({doc.receiver})</span>
+                            </div>
+                          ) : (
+                            <div>
+                              <span style={{ color: '#ef4444', fontWeight: 600, background: '#fee2e2', padding: '0.15rem 0.4rem', borderRadius: '4px', fontSize: '0.85rem' }}>⏳ Chưa nhận lại</span>
+                              <br/><span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>(từ: {doc.receiver})</span>
+                            </div>
+                          )}
                         </td>
                         <td>
                           <span className={`badge ${getStatusBadgeClass(doc.status)}`}>
