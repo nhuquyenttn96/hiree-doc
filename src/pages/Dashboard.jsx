@@ -219,7 +219,7 @@ export default function Dashboard() {
       { header: 'Người gửi', key: 'sender', width: 20 },
       { header: 'Người nhận', key: 'receiver', width: 20 },
       { header: 'Thông tin người nhận', key: 'receiverInfo', width: 30 },
-      { header: 'Ngày nhận', key: 'dateReceived', width: 15 },
+      { header: 'Ngày nhận lại', key: 'dateReceived', width: 15 },
       { header: 'Tình trạng', key: 'status', width: 15 },
       { header: 'Đã scan', key: 'scanned', width: 10 },
       { header: 'Vị trí lưu', key: 'location', width: 20 }
@@ -406,7 +406,7 @@ export default function Dashboard() {
                         </td>
                         <td style={{ fontSize: '0.9rem' }}>
                           <div style={{ marginBottom: '0.25rem' }}><span style={{ color: 'var(--text-muted)' }}>Gửi:</span> {doc.dateSent} <br/><span style={{ fontSize: '0.8rem' }}>({doc.sender})</span></div>
-                          <div><span style={{ color: 'var(--text-muted)' }}>Nhận:</span> {doc.dateReceived || '...'} <br/><span style={{ fontSize: '0.8rem' }}>({doc.receiver})</span></div>
+                          <div><span style={{ color: 'var(--text-muted)' }}>Nhận lại:</span> {doc.dateReceived || '...'} <br/><span style={{ fontSize: '0.8rem' }}>({doc.receiver})</span></div>
                         </td>
                         <td>
                           <span className={`badge ${getStatusBadgeClass(doc.status)}`}>
@@ -604,7 +604,7 @@ export default function Dashboard() {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="form-group">
-                    <label className="form-label">Ngày nhận</label>
+                    <label className="form-label">Ngày nhận lại (từ khách)</label>
                     <input type="date" className="form-control" value={formData.dateReceived} onChange={(e) => setFormData({...formData, dateReceived: e.target.value})} />
                   </div>
                   <div className="form-group">
