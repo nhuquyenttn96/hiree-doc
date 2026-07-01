@@ -5,7 +5,7 @@ export default function Navbar({ activeTab, setActiveTab }) {
     <nav className="navbar glass">
       <div className="navbar-brand">
         <FileText color="var(--primary)" />
-        <span>THEO DÕI GIAO NHẬN <span style={{ whiteSpace: 'nowrap' }}>HỒ SƠ</span></span>
+        <span>THEO DÕI <br className="mobile-break" /> GIAO NHẬN HỒ SƠ</span>
       </div>
       <div className="nav-links">
         <button 
