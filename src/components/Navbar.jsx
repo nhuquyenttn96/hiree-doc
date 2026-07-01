@@ -5,7 +5,7 @@ export default function Navbar({ activeTab, setActiveTab }) {
     <nav className="navbar">
       <div className="navbar-brand">
         <FileText color="var(--primary)" />
-        THEO DÕI GIAO NHẬN HỒ SƠ
+        THEO DÕI GIAO NHẬN <span style={{ whiteSpace: 'nowrap' }}>HỒ SƠ</span>
       </div>
       <div className="nav-links">
         <button 
