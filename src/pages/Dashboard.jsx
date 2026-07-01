@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { getDocuments, addDocument, updateDocument, deleteDocument, getProjects } from '../services/dataService';
 import toast from 'react-hot-toast';
-import * as XLSX from 'xlsx';
+import ExcelJS from 'exceljs';
+import { saveAs } from 'file-saver';
 import Select from 'react-select';
 import { Download, Plus, Search, Edit, Trash2, X } from 'lucide-react';
 
@@ -204,38 +205,81 @@ export default function Dashboard() {
     }
   };
 
-  const exportExcel = () => {
-    const dataToExport = filteredDocuments.map(doc => {
+  const exportExcel = async () => {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('GiaoNhanHoSo');
+
+    worksheet.columns = [
+      { header: 'Công ty', key: 'company', width: 15 },
+      { header: 'Dự án', key: 'project', width: 30 },
+      { header: 'Khách hàng', key: 'customer', width: 30 },
+      { header: 'Số hợp đồng', key: 'contract', width: 20 },
+      { header: 'Hồ sơ gửi', key: 'docs', width: 45 },
+      { header: 'Ngày gửi', key: 'dateSent', width: 15 },
+      { header: 'Người gửi', key: 'sender', width: 20 },
+      { header: 'Người nhận', key: 'receiver', width: 20 },
+      { header: 'Thông tin người nhận', key: 'receiverInfo', width: 30 },
+      { header: 'Ngày nhận', key: 'dateReceived', width: 15 },
+      { header: 'Tình trạng', key: 'status', width: 15 },
+      { header: 'Đã scan', key: 'scanned', width: 10 },
+      { header: 'Vị trí lưu', key: 'location', width: 20 }
+    ];
+
+    // Style Header Row
+    worksheet.getRow(1).font = { bold: true, color: { argb: 'FFFFFFFF' }, size: 11 };
+    worksheet.getRow(1).fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: 'FF4F46E5' } // Indigo color
+    };
+    worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
+
+    // Add Data
+    filteredDocuments.forEach(doc => {
       const p = projects.find(proj => proj.id === doc.projectId) || {};
       
       let docsStr = '';
       if (doc.documents) {
-        docsStr = doc.documents.map(d => `${d.name} (SL: ${d.quantity})`).join(', ');
+        docsStr = doc.documents.map(d => `- ${d.name} (SL: ${d.quantity})`).join('\n');
       } else if (doc.documentNames) {
-        docsStr = doc.documentNames.join(', ');
+        docsStr = doc.documentNames.map(d => `- ${d}`).join('\n');
       }
 
-      return {
-        'Công ty': p.company === 'hireeco' ? 'Hiree Co' : 'Hiree JSC',
-        'Dự án': p.projectName,
-        'Khách hàng': p.customerName,
-        'Số hợp đồng': p.contractNumber,
-        'Hồ sơ gửi': docsStr,
-        'Ngày gửi': doc.dateSent,
-        'Người gửi': doc.sender,
-        'Người nhận': doc.receiver,
-        'Thông tin người nhận': doc.receiverInfo,
-        'Ngày nhận': doc.dateReceived,
-        'Tình trạng nhận': doc.status,
-        'Đã scan': doc.isScanned ? 'Rồi' : 'Chưa',
-        'Vị trí lưu': doc.storageLocation
-      };
+      const row = worksheet.addRow({
+        company: p.company === 'hireeco' ? 'Hiree Co' : 'Hiree JSC',
+        project: p.projectName,
+        customer: p.customerName,
+        contract: p.contractNumber,
+        docs: docsStr,
+        dateSent: doc.dateSent,
+        sender: doc.sender,
+        receiver: doc.receiver,
+        receiverInfo: doc.receiverInfo,
+        dateReceived: doc.dateReceived,
+        status: doc.status,
+        scanned: doc.isScanned ? 'Rồi' : 'Chưa',
+        location: doc.storageLocation
+      });
+
+      // Format cells in row
+      row.getCell('docs').alignment = { wrapText: true, vertical: 'top' };
+      row.eachCell((cell, colNumber) => {
+        if (colNumber !== 5) { // column 5 is docs
+          cell.alignment = { vertical: 'top' };
+        }
+        // Add borders to all cells
+        cell.border = {
+          top: {style:'thin', color: {argb:'FFDDDDDD'}},
+          left: {style:'thin', color: {argb:'FFDDDDDD'}},
+          bottom: {style:'thin', color: {argb:'FFDDDDDD'}},
+          right: {style:'thin', color: {argb:'FFDDDDDD'}}
+        };
+      });
     });
 
-    const worksheet = XLSX.utils.json_to_sheet(dataToExport);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "HoSo");
-    XLSX.writeFile(workbook, "DanhSachGiaoNhanHoSo.xlsx");
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    saveAs(blob, "DanhSachGiaoNhanHoSo.xlsx");
   };
 
   const filteredDocuments = documents.filter(doc => {
