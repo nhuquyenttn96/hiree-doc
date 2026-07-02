@@ -315,10 +315,19 @@ export default function Dashboard() {
     <div>
       <div className="card sticky-filter-bar" style={{ marginBottom: '1.5rem', overflow: 'visible' }}>
         <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <div style={{ display: 'flex', gap: '1.5rem', paddingBottom: '0.75rem', borderBottom: '1px solid var(--border)', fontSize: '0.95rem', fontWeight: 500 }}>
-            <div>Tổng số phiếu: <span style={{ color: 'var(--primary)', fontSize: '1.1rem', fontWeight: 700, marginLeft: '0.25rem' }}>{filteredDocuments.length}</span></div>
-            <div>Chưa nhận lại: <span style={{ color: '#ef4444', fontSize: '1.1rem', fontWeight: 700, marginLeft: '0.25rem' }}>{filteredDocuments.filter(d => !d.dateReceived).length}</span></div>
-            <div>Đã nhận lại: <span style={{ color: '#059669', fontSize: '1.1rem', fontWeight: 700, marginLeft: '0.25rem' }}>{filteredDocuments.filter(d => d.dateReceived).length}</span></div>
+          <div style={{ display: 'flex', gap: '2rem', paddingBottom: '1rem', borderBottom: '1px solid var(--border)', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1.25rem', backgroundColor: 'var(--primary-light)', borderRadius: '99px', border: '1px solid rgba(79, 70, 229, 0.2)' }}>
+              <span style={{ fontSize: '0.9rem', color: 'var(--primary-hover)', fontWeight: 600 }}>Tổng số phiếu</span>
+              <span style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--primary-hover)' }}>{filteredDocuments.length}</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1.25rem', backgroundColor: '#fef2f2', borderRadius: '99px', border: '1px solid #fca5a5' }}>
+              <span style={{ fontSize: '0.9rem', color: '#dc2626', fontWeight: 600 }}>Chưa nhận lại</span>
+              <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#dc2626' }}>{filteredDocuments.filter(d => !d.dateReceived).length}</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1.25rem', backgroundColor: '#f0fdf4', borderRadius: '99px', border: '1px solid #86efac' }}>
+              <span style={{ fontSize: '0.9rem', color: '#16a34a', fontWeight: 600 }}>Đã nhận lại</span>
+              <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#16a34a' }}>{filteredDocuments.filter(d => d.dateReceived).length}</span>
+            </div>
           </div>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end', flexWrap: 'wrap' }}>
           <div className="form-group" style={{ margin: 0, flex: 1, minWidth: '200px' }}>
