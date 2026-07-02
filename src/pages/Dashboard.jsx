@@ -314,7 +314,13 @@ export default function Dashboard() {
   return (
     <div>
       <div className="card sticky-filter-bar" style={{ marginBottom: '1.5rem', overflow: 'visible' }}>
-        <div className="card-body" style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end', flexWrap: 'wrap' }}>
+        <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{ display: 'flex', gap: '1.5rem', paddingBottom: '0.75rem', borderBottom: '1px solid var(--border)', fontSize: '0.95rem', fontWeight: 500 }}>
+            <div>Tổng số phiếu: <span style={{ color: 'var(--primary)', fontSize: '1.1rem', fontWeight: 700, marginLeft: '0.25rem' }}>{filteredDocuments.length}</span></div>
+            <div>Chưa nhận lại: <span style={{ color: '#ef4444', fontSize: '1.1rem', fontWeight: 700, marginLeft: '0.25rem' }}>{filteredDocuments.filter(d => !d.dateReceived).length}</span></div>
+            <div>Đã nhận lại: <span style={{ color: '#059669', fontSize: '1.1rem', fontWeight: 700, marginLeft: '0.25rem' }}>{filteredDocuments.filter(d => d.dateReceived).length}</span></div>
+          </div>
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end', flexWrap: 'wrap' }}>
           <div className="form-group" style={{ margin: 0, flex: 1, minWidth: '200px' }}>
             <label className="form-label">Tìm kiếm (Dự án, Khách hàng, HĐ)</label>
             <div style={{ position: 'relative' }}>
@@ -359,6 +365,7 @@ export default function Dashboard() {
           <button className="btn btn-primary" onClick={openNewModal}>
             <Plus size={18} /> Tạo Phiếu
           </button>
+          </div>
         </div>
       </div>
 
