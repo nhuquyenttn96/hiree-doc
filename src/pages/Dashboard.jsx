@@ -438,9 +438,9 @@ export default function Dashboard() {
                           </div>
                         </td>
                         <td style={{ fontSize: '0.9rem' }}>
-                          <div style={{ marginBottom: '0.25rem' }}><span style={{ color: 'var(--text-muted)' }}>Gửi:</span> {doc.dateSent} <br/><span style={{ fontSize: '0.8rem' }}>({doc.sender})</span></div>
+                          <div style={{ marginBottom: '0.25rem', whiteSpace: 'nowrap' }}><span style={{ color: 'var(--text-muted)' }}>Gửi:</span> {doc.dateSent} <br/><span style={{ fontSize: '0.8rem' }}>({doc.sender})</span></div>
                           {doc.dateReceived ? (
-                            <div>
+                            <div style={{ whiteSpace: 'nowrap' }}>
                               <span style={{ color: 'var(--text-muted)' }}>Nhận lại:</span> <span style={{ color: 'var(--secondary-hover)', fontWeight: 600 }}>{doc.dateReceived}</span>
                               <br/><span style={{ fontSize: '0.8rem' }}>({doc.receiver})</span>
                             </div>
