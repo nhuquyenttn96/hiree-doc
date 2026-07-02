@@ -201,6 +201,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Table */
 .table-container {
   overflow-x: auto;
+  overflow-y: auto;
+  max-height: calc(100vh - 280px);
   width: 100%;
 }
 
@@ -212,7 +214,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .table th {
-  background-color: rgba(248, 250, 252, 0.8);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: #f8fafc;
   padding: 1rem 1.5rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -329,10 +334,18 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 10;
 }
 
+.sticky-filter-bar {
+  position: sticky;
+  top: 85px;
+  z-index: 40;
+}
+
 @media (max-width: 1024px) {
   .grid-cols-3 { grid-template-columns: 1fr; }
   .master-data-layout { grid-template-columns: 1fr !important; }
   .sticky-form { position: static; }
+  .sticky-filter-bar { top: 75px; }
+  .table-container { max-height: calc(100vh - 220px); }
 }
 
 .master-data-layout > .card {

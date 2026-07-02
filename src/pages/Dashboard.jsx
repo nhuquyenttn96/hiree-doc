@@ -56,6 +56,7 @@ export default function Dashboard() {
   // Filters
   const [filterCompany, setFilterCompany] = useState('');
   const [filterSearch, setFilterSearch] = useState('');
+  const [filterReturnStatus, setFilterReturnStatus] = useState('all');
 
   useEffect(() => {
     loadData();
@@ -289,6 +290,10 @@ export default function Dashboard() {
     // Filter Company
     if (filterCompany && p.company !== filterCompany) return false;
     
+    // Filter Return Status
+    if (filterReturnStatus === 'not_received' && doc.dateReceived) return false;
+    if (filterReturnStatus === 'received' && !doc.dateReceived) return false;
+    
     // Filter Search (Project, Customer, Contract)
     if (filterSearch) {
       const term = filterSearch.toLowerCase();
@@ -308,7 +313,7 @@ export default function Dashboard() {
 
   return (
     <div>
-      <div className="card" style={{ marginBottom: '1.5rem', overflow: 'visible' }}>
+      <div className="card sticky-filter-bar" style={{ marginBottom: '1.5rem', overflow: 'visible' }}>
         <div className="card-body" style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end', flexWrap: 'wrap' }}>
           <div className="form-group" style={{ margin: 0, flex: 1, minWidth: '200px' }}>
             <label className="form-label">Tìm kiếm (Dự án, Khách hàng, HĐ)</label>
@@ -324,7 +329,7 @@ export default function Dashboard() {
               <Search size={18} style={{ position: 'absolute', left: '0.85rem', top: '0.8rem', color: 'var(--text-muted)' }} />
             </div>
           </div>
-          <div className="form-group" style={{ margin: 0, width: '200px' }}>
+          <div className="form-group" style={{ margin: 0, width: '180px' }}>
             <label className="form-label">Lọc theo Công ty</label>
             <select 
               className="form-control"
@@ -336,11 +341,23 @@ export default function Dashboard() {
               <option value="hireejsc">Hiree JSC</option>
             </select>
           </div>
+          <div className="form-group" style={{ margin: 0, width: '180px' }}>
+            <label className="form-label">Tình trạng nhận</label>
+            <select 
+              className="form-control"
+              value={filterReturnStatus}
+              onChange={(e) => setFilterReturnStatus(e.target.value)}
+            >
+              <option value="all">Tất cả</option>
+              <option value="not_received">Chưa nhận lại</option>
+              <option value="received">Đã nhận lại</option>
+            </select>
+          </div>
           <button className="btn btn-secondary" onClick={exportExcel}>
             <Download size={18} /> Xuất Excel
           </button>
           <button className="btn btn-primary" onClick={openNewModal}>
-            <Plus size={18} /> Tạo Phiếu Giao Nhận
+            <Plus size={18} /> Tạo Phiếu
           </button>
         </div>
       </div>
