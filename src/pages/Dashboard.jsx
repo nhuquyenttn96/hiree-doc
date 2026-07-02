@@ -345,7 +345,7 @@ export default function Dashboard() {
             </div>
           </div>
           <div className="form-group" style={{ margin: 0, width: '180px' }}>
-            <label className="form-label">Lọc theo Công ty</label>
+            <label className="form-label">Công ty</label>
             <select 
               className="form-control"
               value={filterCompany}
