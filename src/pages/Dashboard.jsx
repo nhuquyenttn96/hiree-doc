@@ -139,6 +139,7 @@ export default function Dashboard() {
       status: 'Chưa ký',
       customStatus: '',
       isScanned: false,
+      isStored: false,
       storageLocation: ''
     });
     setDocInput('');
@@ -158,7 +159,8 @@ export default function Dashboard() {
       ...doc,
       documents: docsData,
       customStatus: STATUS_OPTIONS.some(opt => opt.value === doc.status) ? '' : doc.status,
-      status: STATUS_OPTIONS.some(opt => opt.value === doc.status) ? doc.status : 'Khác'
+      status: STATUS_OPTIONS.some(opt => opt.value === doc.status) ? doc.status : 'Khác',
+      isStored: doc.isStored || false
     });
     setDocInput('');
     setShowModal(true);
@@ -458,7 +460,14 @@ export default function Dashboard() {
                         </td>
                         <td style={{ fontSize: '0.9rem' }}>
                           <div style={{ marginBottom: '0.25rem' }}><span style={{ color: 'var(--text-muted)' }}>Scan:</span> {doc.isScanned ? '✅ Đã scan' : '⏳ Chưa'}</div>
-                          {doc.storageLocation && <div><span style={{ color: 'var(--text-muted)' }}>Vị trí:</span> {doc.storageLocation}</div>}
+                          {(doc.isStored || doc.storageLocation) && (
+                            <div>
+                              <span style={{ color: 'var(--text-muted)' }}>Vị trí:</span>{' '}
+                              <span style={{ fontWeight: 500, color: 'var(--primary)' }}>
+                                {doc.isStored ? (p.storageLocation || 'Chưa cập nhật bìa') : doc.storageLocation}
+                              </span>
+                            </div>
+                          )}
                         </td>
                         <td>
                           <div style={{ display: 'flex', gap: '0.75rem' }}>
@@ -684,8 +693,16 @@ export default function Dashboard() {
                     </label>
                   </div>
                   <div className="form-group">
-                    <label className="form-label">Vị trí lưu bản cứng</label>
-                    <input type="text" className="form-control" placeholder="Ví dụ: Tủ A, Ngăn 3" value={formData.storageLocation} onChange={(e) => setFormData({...formData, storageLocation: e.target.value})} />
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', margin: 0, marginTop: '28px' }}>
+                      <input 
+                        type="checkbox" 
+                        name="isStored" 
+                        checked={formData.isStored}
+                        onChange={(e) => setFormData({ ...formData, isStored: e.target.checked })}
+                        style={{ width: '1.2rem', height: '1.2rem', accentColor: 'var(--primary)' }}
+                      />
+                      Đã lưu vào bìa hồ sơ
+                    </label>
                   </div>
                 </div>
 

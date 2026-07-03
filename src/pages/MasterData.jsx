@@ -13,7 +13,8 @@ export default function MasterData() {
     customerName: '',
     contractNumber: '',
     contractNumber: '',
-    defaultReceiver: ''
+    defaultReceiver: '',
+    storageLocation: ''
   });
   const [editingId, setEditingId] = useState(null);
   const [filterSearch, setFilterSearch] = useState('');
@@ -60,7 +61,8 @@ export default function MasterData() {
         projectName: '',
         customerName: '',
         contractNumber: '',
-        defaultReceiver: ''
+        defaultReceiver: '',
+        storageLocation: ''
       });
       loadProjects();
     } catch (error) {
@@ -75,7 +77,8 @@ export default function MasterData() {
       projectName: project.projectName || '',
       customerName: project.customerName || '',
       contractNumber: project.contractNumber || '',
-      defaultReceiver: project.defaultReceiver || ''
+      defaultReceiver: project.defaultReceiver || '',
+      storageLocation: project.storageLocation || ''
     });
   };
 
@@ -86,7 +89,8 @@ export default function MasterData() {
       projectName: '',
       customerName: '',
       contractNumber: '',
-      defaultReceiver: ''
+      defaultReceiver: '',
+      storageLocation: ''
     });
   };
 
@@ -166,7 +170,8 @@ export default function MasterData() {
             projectName: normalizedRow['duan'] || normalizedRow['tenduan'] || '',
             customerName: normalizedRow['khachhang'] || normalizedRow['tenkhachhang'] || '',
             contractNumber: normalizedRow['sohopdong'] || normalizedRow['sohd'] || normalizedRow['hd'] || '',
-            defaultReceiver: normalizedRow['nguoinhan'] || ''
+            defaultReceiver: normalizedRow['nguoinhan'] || '',
+            storageLocation: normalizedRow['noiluutru'] || normalizedRow['biahoso'] || normalizedRow['vitri'] || ''
           };
         }).filter(p => p.projectName && p.customerName); // Chỉ lấy dòng có dữ liệu Dự án và Khách hàng
 
@@ -191,7 +196,8 @@ export default function MasterData() {
     (p.projectName || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
     (p.customerName || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
     (p.contractNumber || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
-    (p.defaultReceiver || '').toLowerCase().includes(filterSearch.toLowerCase())
+    (p.defaultReceiver || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
+    (p.storageLocation || '').toLowerCase().includes(filterSearch.toLowerCase())
   );
 
   return (
@@ -255,6 +261,17 @@ export default function MasterData() {
                 onChange={handleInputChange} 
               />
             </div>
+            <div className="form-group">
+              <label className="form-label">Nơi lưu trữ (Bìa hồ sơ)</label>
+              <input 
+                type="text" 
+                className="form-control" 
+                name="storageLocation" 
+                value={formData.storageLocation} 
+                onChange={handleInputChange} 
+                placeholder="VD: Bìa còng 1..."
+              />
+            </div>
             
             {editingId ? (
               <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -278,7 +295,7 @@ export default function MasterData() {
             <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>
               Hoặc import từ file Excel (.xlsx)
               <br/>
-              (Cột: Công ty, Dự án, Khách hàng, Số hợp đồng, Người nhận)
+              (Cột: Công ty, Dự án, Khách hàng, Số hợp đồng, Người nhận, Nơi lưu trữ)
             </p>
             <label className="btn btn-secondary" style={{ width: '100%', cursor: 'pointer' }}>
               <Upload size={16} /> Import Excel
@@ -339,6 +356,7 @@ export default function MasterData() {
                   <th>Khách hàng</th>
                   <th>Số hợp đồng</th>
                   <th>Người nhận</th>
+                  <th>Nơi lưu trữ</th>
                   <th style={{ textAlign: 'center' }}>Thao tác</th>
                 </tr>
               </thead>
@@ -367,6 +385,7 @@ export default function MasterData() {
                       <td>{p.customerName}</td>
                       <td>{p.contractNumber}</td>
                       <td>{p.defaultReceiver}</td>
+                      <td>{p.storageLocation}</td>
                       <td style={{ textAlign: 'center' }}>
                         <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
                           <button 
