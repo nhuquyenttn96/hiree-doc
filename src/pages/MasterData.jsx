@@ -402,7 +402,7 @@ export default function MasterData() {
                       <td>{p.customerName}</td>
                       <td>{p.contractNumber}</td>
                       <td>{p.defaultReceiver}</td>
-                      <td style={{ color: '#ef4444', fontStyle: 'italic', maxWidth: '200px', minWidth: '150px', whiteSpace: 'pre-wrap' }}>{p.note}</td>
+                      <td style={{ color: '#7c3aed', fontStyle: 'italic', maxWidth: '200px', minWidth: '150px', whiteSpace: 'pre-wrap' }}>{p.note}</td>
                       <td>{p.storageLocation}</td>
                       <td style={{ textAlign: 'center' }}>
                         <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>

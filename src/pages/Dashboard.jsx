@@ -496,7 +496,7 @@ export default function Dashboard() {
                         </td>
                         <td>
                           {doc.note && (
-                            <div style={{ fontSize: '0.85rem', color: '#ef4444', fontStyle: 'italic', maxWidth: '200px', whiteSpace: 'pre-wrap' }}>
+                            <div style={{ fontSize: '0.85rem', color: '#7c3aed', fontStyle: 'italic', maxWidth: '200px', whiteSpace: 'pre-wrap' }}>
                               {doc.note}
                             </div>
                           )}
