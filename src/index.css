@@ -14,14 +14,14 @@
   --border: #e2e8f0;
   
   /* Status Colors */
-  --status-pending: #d97706;
-  --status-signed-1: #2563eb;
-  --status-signed-2: #059669;
-  --status-custom: #7c3aed;
-  --status-bg-pending: #fef3c7;
-  --status-bg-signed-1: #dbeafe;
-  --status-bg-signed-2: #d1fae5;
-  --status-bg-custom: #ede9fe;
+  --status-pending: #c2410c; /* Orange 700 */
+  --status-signed-1: #9333ea; /* Purple 600 */
+  --status-signed-2: #0d9488; /* Teal 600 */
+  --status-custom: #0369a1; /* Sky 700 */
+  --status-bg-pending: #ffedd5;
+  --status-bg-signed-1: #f3e8ff;
+  --status-bg-signed-2: #ccfbf1;
+  --status-bg-custom: #e0f2fe;
 
   /* Shadows - softer and larger for premium feel */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
