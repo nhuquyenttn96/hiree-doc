@@ -484,7 +484,14 @@ export default function Dashboard() {
                           </span>
                         </td>
                         <td style={{ fontSize: '0.9rem' }}>
-                          <div style={{ marginBottom: '0.25rem' }}><span style={{ color: 'var(--text-muted)' }}>Scan:</span> {doc.isScanned ? '✅ Đã scan' : '⏳ Chưa'}</div>
+                          <div style={{ marginBottom: '0.25rem' }}>
+                            <span style={{ color: 'var(--text-muted)' }}>Scan:</span>{' '}
+                            {doc.isScanned ? (
+                              <span style={{ color: '#059669', fontWeight: 600 }}>✅ Đã scan</span>
+                            ) : (
+                              <span style={{ color: '#ea580c', background: '#ffedd5', padding: '0.15rem 0.4rem', borderRadius: '4px', fontWeight: 600, fontSize: '0.8rem' }}>⏳ Chưa</span>
+                            )}
+                          </div>
                           {(doc.isStored || doc.storageLocation) && (
                             <div>
                               <span style={{ color: 'var(--text-muted)' }}>Vị trí:</span>{' '}

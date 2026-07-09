@@ -4,7 +4,7 @@ export default function Navbar({ activeTab, setActiveTab }) {
   return (
     <nav className="navbar glass">
       <div className="navbar-brand">
-        <FileText color="var(--primary)" />
+        <img src="/hello-kitty.png" alt="Hello Kitty" style={{ height: '36px', objectFit: 'contain' }} />
         <span>THEO DÕI <br className="mobile-break" /> GIAO NHẬN HỒ SƠ</span>
       </div>
       <div className="nav-links">
