@@ -12,7 +12,6 @@ export default function MasterData() {
     projectName: '',
     customerName: '',
     contractNumber: '',
-    contractNumber: '',
     defaultReceiver: '',
     storageLocation: ''
   });
@@ -167,11 +166,11 @@ export default function MasterData() {
 
           return {
             company: companyCode,
-            projectName: normalizedRow['duan'] || normalizedRow['tenduan'] || '',
-            customerName: normalizedRow['khachhang'] || normalizedRow['tenkhachhang'] || '',
-            contractNumber: normalizedRow['sohopdong'] || normalizedRow['sohd'] || normalizedRow['hd'] || '',
-            defaultReceiver: normalizedRow['nguoinhan'] || '',
-            storageLocation: normalizedRow['noiluutru'] || normalizedRow['biahoso'] || normalizedRow['vitri'] || ''
+            projectName: String(normalizedRow['duan'] || normalizedRow['tenduan'] || ''),
+            customerName: String(normalizedRow['khachhang'] || normalizedRow['tenkhachhang'] || ''),
+            contractNumber: String(normalizedRow['sohopdong'] || normalizedRow['sohd'] || normalizedRow['hd'] || ''),
+            defaultReceiver: String(normalizedRow['nguoinhan'] || ''),
+            storageLocation: String(normalizedRow['noiluutru'] || normalizedRow['biahoso'] || normalizedRow['vitri'] || '')
           };
         }).filter(p => p.projectName && p.customerName); // Chỉ lấy dòng có dữ liệu Dự án và Khách hàng
 
@@ -193,11 +192,11 @@ export default function MasterData() {
   };
 
   const filteredProjects = projects.filter(p => 
-    (p.projectName || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
-    (p.customerName || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
-    (p.contractNumber || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
-    (p.defaultReceiver || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
-    (p.storageLocation || '').toLowerCase().includes(filterSearch.toLowerCase())
+    String(p.projectName || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
+    String(p.customerName || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
+    String(p.contractNumber || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
+    String(p.defaultReceiver || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
+    String(p.storageLocation || '').toLowerCase().includes(filterSearch.toLowerCase())
   );
 
   return (

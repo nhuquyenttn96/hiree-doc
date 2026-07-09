@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import Select from 'react-select';
-import { Download, Plus, Search, Edit, Trash2, X } from 'lucide-react';
+import { Download, Plus, Search, Edit, Trash2, X, Archive } from 'lucide-react';
 
 const COMMON_DOCS = [
   "Hợp đồng",
@@ -205,6 +205,24 @@ export default function Dashboard() {
       } catch (error) {
         toast.error('Lỗi khi xóa');
       }
+    }
+  };
+
+  const handleQuickReceiveAndStore = async (doc) => {
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      const updatedDoc = {
+        ...doc,
+        dateReceived: today,
+        isStored: true,
+        isScanned: true,
+        status: 'Đủ 2 dấu'
+      };
+      await updateDocument(doc.id, updatedDoc);
+      toast.success('Đã xác nhận nhận lại, scan và lưu vào bìa');
+      loadData();
+    } catch (error) {
+      toast.error('Lỗi khi cập nhật phiếu');
     }
   };
 
@@ -470,7 +488,17 @@ export default function Dashboard() {
                           )}
                         </td>
                         <td>
-                          <div style={{ display: 'flex', gap: '0.75rem' }}>
+                          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                            {!doc.dateReceived && (
+                              <button 
+                                onClick={() => handleQuickReceiveAndStore(doc)} 
+                                className="btn btn-secondary" 
+                                style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.25rem', whiteSpace: 'nowrap' }}
+                                title="Nhận, Scan & Lưu bìa"
+                              >
+                                <Archive size={14} /> Lưu bìa
+                              </button>
+                            )}
                             <button onClick={() => openEditModal(doc)} className="close-btn" style={{ color: 'var(--primary)' }} title="Chỉnh sửa">
                               <Edit size={18} />
                             </button>
