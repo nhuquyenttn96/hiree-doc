@@ -206,7 +206,7 @@ export default function MasterData() {
   );
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '1.5rem', alignItems: 'stretch', flex: 1 }} className="master-data-layout">
+    <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '1.5rem', alignItems: 'stretch', flex: 1, minHeight: 0 }} className="master-data-layout">
       <div className="card sticky-form">
         <div className="card-header">
           <h2>{editingId ? 'Cập nhật Dữ liệu gốc' : 'Thêm Dữ liệu gốc'}</h2>
@@ -326,7 +326,7 @@ export default function MasterData() {
         </div>
       </div>
 
-      <div className="card" style={{ overflow: 'visible', display: 'flex', flexDirection: 'column' }}>
+      <div className="card" style={{ overflow: 'visible', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
         <div className="card-header sticky-filter-bar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', backgroundColor: '#f8fafc', borderTopLeftRadius: 'var(--radius-xl)', borderTopRightRadius: 'var(--radius-xl)', zIndex: 30 }}>
           <h2 style={{ margin: 0 }}>Danh sách Dữ liệu gốc ({filteredProjects.length})</h2>
           
