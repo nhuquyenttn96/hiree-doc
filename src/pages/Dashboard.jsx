@@ -47,7 +47,8 @@ export default function Dashboard() {
     status: 'Chưa ký',
     customStatus: '',
     isScanned: false,
-    storageLocation: ''
+    storageLocation: '',
+    note: ''
   });
   
   // Custom Doc Input
@@ -140,7 +141,8 @@ export default function Dashboard() {
       customStatus: '',
       isScanned: false,
       isStored: false,
-      storageLocation: ''
+      storageLocation: '',
+      note: ''
     });
     setDocInput('');
     setShowModal(true);
@@ -160,7 +162,8 @@ export default function Dashboard() {
       documents: docsData,
       customStatus: STATUS_OPTIONS.some(opt => opt.value === doc.status) ? '' : doc.status,
       status: STATUS_OPTIONS.some(opt => opt.value === doc.status) ? doc.status : 'Khác',
-      isStored: doc.isStored || false
+      isStored: doc.isStored || false,
+      note: doc.note || ''
     });
     setDocInput('');
     setShowModal(true);
@@ -243,7 +246,8 @@ export default function Dashboard() {
       { header: 'Ngày nhận lại', key: 'dateReceived', width: 15 },
       { header: 'Tình trạng', key: 'status', width: 15 },
       { header: 'Đã scan', key: 'scanned', width: 10 },
-      { header: 'Vị trí lưu', key: 'location', width: 20 }
+      { header: 'Vị trí lưu', key: 'location', width: 20 },
+      { header: 'Ghi chú', key: 'note', width: 25 }
     ];
 
     // Style Header Row
@@ -279,11 +283,13 @@ export default function Dashboard() {
         dateReceived: doc.dateReceived,
         status: doc.status,
         scanned: doc.isScanned ? 'Rồi' : 'Chưa',
-        location: doc.storageLocation
+        location: doc.storageLocation,
+        note: doc.note || ''
       });
 
       // Format cells in row
       row.getCell('docs').alignment = { wrapText: true, vertical: 'top' };
+      row.getCell('note').alignment = { wrapText: true, vertical: 'top' };
       row.eachCell((cell, colNumber) => {
         if (colNumber !== 5) { // column 5 is docs
           cell.alignment = { vertical: 'top' };
@@ -409,6 +415,7 @@ export default function Dashboard() {
                   <th>Giao nhận</th>
                   <th>Tình trạng</th>
                   <th>Lưu trữ</th>
+                  <th>Ghi chú</th>
                   <th>Thao tác</th>
                 </tr>
               </thead>
@@ -484,6 +491,13 @@ export default function Dashboard() {
                               <span style={{ fontWeight: 500, color: 'var(--primary)' }}>
                                 {doc.isStored ? (p.storageLocation || 'Chưa cập nhật bìa') : doc.storageLocation}
                               </span>
+                            </div>
+                          )}
+                        </td>
+                        <td>
+                          {doc.note && (
+                            <div style={{ fontSize: '0.85rem', color: '#ef4444', fontStyle: 'italic', maxWidth: '200px', whiteSpace: 'pre-wrap' }}>
+                              {doc.note}
                             </div>
                           )}
                         </td>
@@ -732,6 +746,17 @@ export default function Dashboard() {
                       Đã lưu vào bìa hồ sơ
                     </label>
                   </div>
+                </div>
+
+                <div className="form-group" style={{ marginTop: '1rem' }}>
+                  <label className="form-label">Ghi chú (Thiếu hồ sơ, cần bổ sung...)</label>
+                  <textarea 
+                    className="form-control" 
+                    rows="3" 
+                    placeholder="Ghi chú lại nếu hồ sơ bị thiếu chứng từ hoặc cần xử lý thêm..."
+                    value={formData.note}
+                    onChange={(e) => setFormData({...formData, note: e.target.value})}
+                  ></textarea>
                 </div>
 
               </form>
