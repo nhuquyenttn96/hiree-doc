@@ -202,7 +202,6 @@ h1, h2, h3, h4, h5, h6 {
 .table-container {
   overflow-x: auto;
   overflow-y: auto;
-  max-height: calc(100vh - 280px);
   width: 100%;
 }
 
@@ -346,7 +345,6 @@ h1, h2, h3, h4, h5, h6 {
   .master-data-layout { grid-template-columns: 1fr !important; }
   .sticky-form { position: static; }
   .sticky-filter-bar { top: 75px; }
-  .table-container { max-height: calc(100vh - 220px); }
 }
 
 .master-data-layout > .card {

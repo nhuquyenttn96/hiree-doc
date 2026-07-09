@@ -338,7 +338,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
       <div className="card sticky-filter-bar" style={{ marginBottom: '1.5rem', overflow: 'visible' }}>
         <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div style={{ display: 'flex', gap: '2rem', paddingBottom: '1rem', borderBottom: '1px solid var(--border)', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -404,9 +404,9 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="card">
-        <div className="card-body" style={{ padding: 0 }}>
-          <div className="table-container">
+      <div className="card" style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+        <div className="card-body" style={{ padding: 0, flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+          <div className="table-container" style={{ flex: 1, overflow: 'auto' }}>
             <table className="table">
               <thead>
                 <tr>

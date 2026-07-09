@@ -206,7 +206,7 @@ export default function MasterData() {
   );
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '1.5rem', alignItems: 'start' }} className="master-data-layout">
+    <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '1.5rem', alignItems: 'stretch', flex: 1 }} className="master-data-layout">
       <div className="card sticky-form">
         <div className="card-header">
           <h2>{editingId ? 'Cập nhật Dữ liệu gốc' : 'Thêm Dữ liệu gốc'}</h2>
@@ -326,7 +326,7 @@ export default function MasterData() {
         </div>
       </div>
 
-      <div className="card" style={{ overflow: 'visible' }}>
+      <div className="card" style={{ overflow: 'visible', display: 'flex', flexDirection: 'column' }}>
         <div className="card-header sticky-filter-bar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', backgroundColor: '#f8fafc', borderTopLeftRadius: 'var(--radius-xl)', borderTopRightRadius: 'var(--radius-xl)', zIndex: 30 }}>
           <h2 style={{ margin: 0 }}>Danh sách Dữ liệu gốc ({filteredProjects.length})</h2>
           
@@ -354,8 +354,8 @@ export default function MasterData() {
             )}
           </div>
         </div>
-        <div className="card-body" style={{ padding: 0 }}>
-          <div className="table-container" style={{ maxHeight: 'calc(100vh - 170px)' }}>
+        <div className="card-body" style={{ padding: 0, flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+          <div className="table-container" style={{ flex: 1, overflow: 'auto' }}>
             <table className="table">
               <thead>
                 <tr>
