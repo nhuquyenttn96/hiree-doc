@@ -12,7 +12,7 @@ function App() {
       <Toaster position="top-right" containerStyle={{ zIndex: 99999 }} />
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
       
-      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+      <main>
         {activeTab === 'dashboard' && <Dashboard />}
         {activeTab === 'master' && <MasterData />}
       </main>
