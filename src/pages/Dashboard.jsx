@@ -406,7 +406,7 @@ export default function Dashboard() {
 
       <div className="card">
         <div className="card-body" style={{ padding: 0 }}>
-          <div className="table-container">
+          <div className="table-container" style={{ maxHeight: 'calc(100vh - 280px)' }}>
             <table className="table">
               <thead>
                 <tr>

@@ -326,7 +326,7 @@ export default function MasterData() {
         </div>
       </div>
 
-      <div className="card" style={{ overflow: 'visible', display: 'flex', flexDirection: 'column' }}>
+      <div className="card" style={{ overflow: 'visible', display: 'flex', flexDirection: 'column', height: '100%' }}>
         <div className="card-header sticky-filter-bar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', backgroundColor: '#f8fafc', borderTopLeftRadius: 'var(--radius-xl)', borderTopRightRadius: 'var(--radius-xl)', zIndex: 30 }}>
           <h2 style={{ margin: 0 }}>Danh sách Dữ liệu gốc ({filteredProjects.length})</h2>
           
