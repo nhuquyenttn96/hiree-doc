@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Premium Colors */
-  --primary: #6366f1; /* Indigo 500 */
-  --primary-hover: #4f46e5;
-  --primary-light: #e0e7ff;
-  --secondary: #10b981;
-  --secondary-hover: #059669;
-  --background: #f1f5f9; /* Slate 100 */
+  /* Premium Colors (Hello Kitty Theme) */
+  --primary: #f472b6; /* Pink 400 */
+  --primary-hover: #ec4899; /* Pink 500 */
+  --primary-light: #fdf2f8; /* Pink 50 */
+  --secondary: #f43f5e; /* Rose 500 */
+  --secondary-hover: #e11d48;
+  --background: #fff0f5; /* Lavender Blush */
   --surface: #ffffff;
-  --text-main: #0f172a; /* Slate 900 */
-  --text-muted: #64748b; /* Slate 500 */
+  --text-main: #831843; /* Pink 900 */
+  --text-muted: #9d174d; /* Pink 800 */
   --border: #e2e8f0;
   
   /* Status Colors */
@@ -53,9 +53,9 @@
 body {
   font-family: 'Inter', -apple-system, sans-serif;
   background-color: var(--background);
-  background-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,0.03) 0, transparent 50%), 
-                    radial-gradient(at 50% 0%, hsla(225,39%,30%,0.03) 0, transparent 50%), 
-                    radial-gradient(at 100% 0%, hsla(339,49%,30%,0.03) 0, transparent 50%);
+  background-image: radial-gradient(at 0% 0%, hsla(330,100%,70%,0.05) 0, transparent 50%), 
+                    radial-gradient(at 50% 0%, hsla(340,100%,60%,0.05) 0, transparent 50%), 
+                    radial-gradient(at 100% 0%, hsla(350,100%,70%,0.05) 0, transparent 50%);
   color: var(--text-main);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -98,14 +98,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary), #818cf8);
+  background: linear-gradient(135deg, var(--primary), #fda4af);
   color: white;
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 14px rgba(244, 114, 182, 0.3);
 }
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 6px 20px rgba(244, 114, 182, 0.4);
 }
 
 .btn-secondary {

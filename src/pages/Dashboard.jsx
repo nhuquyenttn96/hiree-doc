@@ -255,7 +255,7 @@ export default function Dashboard() {
     worksheet.getRow(1).fill = {
       type: 'pattern',
       pattern: 'solid',
-      fgColor: { argb: 'FF4F46E5' } // Indigo color
+      fgColor: { argb: 'FFEC4899' } // Pink color
     };
     worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
 
