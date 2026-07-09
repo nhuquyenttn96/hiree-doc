@@ -355,7 +355,7 @@ export default function MasterData() {
           </div>
         </div>
         <div className="card-body" style={{ padding: 0 }}>
-          <div className="table-container">
+          <div className="table-container" style={{ maxHeight: 'calc(100vh - 170px)' }}>
             <table className="table">
               <thead>
                 <tr>
