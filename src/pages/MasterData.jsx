@@ -206,7 +206,7 @@ export default function MasterData() {
   );
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '250px 1fr', gap: '1.5rem', alignItems: 'start' }} className="master-data-layout">
+    <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '1.5rem', alignItems: 'start' }} className="master-data-layout">
       <div className="card sticky-form">
         <div className="card-header">
           <h2>{editingId ? 'Cập nhật Dữ liệu gốc' : 'Thêm Dữ liệu gốc'}</h2>
@@ -371,8 +371,8 @@ export default function MasterData() {
                   <th>Dự án</th>
                   <th>Khách hàng</th>
                   <th>Số hợp đồng</th>
-                  <th>Người nhận</th>
-                  <th>Ghi chú</th>
+                  <th style={{ minWidth: '120px' }}>Người nhận</th>
+                  <th style={{ minWidth: '150px' }}>Ghi chú</th>
                   <th>Nơi lưu trữ</th>
                   <th style={{ textAlign: 'center' }}>Thao tác</th>
                 </tr>
@@ -402,7 +402,7 @@ export default function MasterData() {
                       <td>{p.customerName}</td>
                       <td>{p.contractNumber}</td>
                       <td>{p.defaultReceiver}</td>
-                      <td style={{ color: '#ef4444', fontStyle: 'italic', maxWidth: '200px', whiteSpace: 'pre-wrap' }}>{p.note}</td>
+                      <td style={{ color: '#ef4444', fontStyle: 'italic', maxWidth: '200px', minWidth: '150px', whiteSpace: 'pre-wrap' }}>{p.note}</td>
                       <td>{p.storageLocation}</td>
                       <td style={{ textAlign: 'center' }}>
                         <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
