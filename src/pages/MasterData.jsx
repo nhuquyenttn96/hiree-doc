@@ -355,7 +355,7 @@ export default function MasterData() {
           </div>
         </div>
         <div className="card-body" style={{ padding: 0, flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
-          <div className="table-container" style={{ flex: 1, overflow: 'auto' }}>
+          <div className="table-container" style={{ flex: 1, overflow: 'auto', minHeight: 0 }}>
             <table className="table">
               <thead>
                 <tr>
