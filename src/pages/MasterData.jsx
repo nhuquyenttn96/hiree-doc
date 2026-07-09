@@ -13,7 +13,8 @@ export default function MasterData() {
     customerName: '',
     contractNumber: '',
     defaultReceiver: '',
-    storageLocation: ''
+    storageLocation: '',
+    note: ''
   });
   const [editingId, setEditingId] = useState(null);
   const [filterSearch, setFilterSearch] = useState('');
@@ -61,7 +62,8 @@ export default function MasterData() {
         customerName: '',
         contractNumber: '',
         defaultReceiver: '',
-        storageLocation: ''
+        storageLocation: '',
+        note: ''
       });
       loadProjects();
     } catch (error) {
@@ -77,7 +79,8 @@ export default function MasterData() {
       customerName: project.customerName || '',
       contractNumber: project.contractNumber || '',
       defaultReceiver: project.defaultReceiver || '',
-      storageLocation: project.storageLocation || ''
+      storageLocation: project.storageLocation || '',
+      note: project.note || ''
     });
   };
 
@@ -89,7 +92,8 @@ export default function MasterData() {
       customerName: '',
       contractNumber: '',
       defaultReceiver: '',
-      storageLocation: ''
+      storageLocation: '',
+      note: ''
     });
   };
 
@@ -170,7 +174,8 @@ export default function MasterData() {
             customerName: String(normalizedRow['khachhang'] || normalizedRow['tenkhachhang'] || ''),
             contractNumber: String(normalizedRow['sohopdong'] || normalizedRow['sohd'] || normalizedRow['hd'] || ''),
             defaultReceiver: String(normalizedRow['nguoinhan'] || ''),
-            storageLocation: String(normalizedRow['noiluutru'] || normalizedRow['biahoso'] || normalizedRow['vitri'] || '')
+            storageLocation: String(normalizedRow['noiluutru'] || normalizedRow['biahoso'] || normalizedRow['vitri'] || ''),
+            note: String(normalizedRow['ghichu'] || '')
           };
         }).filter(p => p.projectName && p.customerName); // Chỉ lấy dòng có dữ liệu Dự án và Khách hàng
 
@@ -196,7 +201,8 @@ export default function MasterData() {
     String(p.customerName || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
     String(p.contractNumber || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
     String(p.defaultReceiver || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
-    String(p.storageLocation || '').toLowerCase().includes(filterSearch.toLowerCase())
+    String(p.storageLocation || '').toLowerCase().includes(filterSearch.toLowerCase()) ||
+    String(p.note || '').toLowerCase().includes(filterSearch.toLowerCase())
   );
 
   return (
@@ -270,6 +276,17 @@ export default function MasterData() {
                 onChange={handleInputChange} 
                 placeholder="VD: Bìa còng 1..."
               />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Ghi chú (Hồ sơ thiếu...)</label>
+              <textarea 
+                className="form-control" 
+                name="note" 
+                rows="2"
+                value={formData.note} 
+                onChange={handleInputChange} 
+                placeholder="Nhập ghi chú nếu có..."
+              ></textarea>
             </div>
             
             {editingId ? (
@@ -355,15 +372,16 @@ export default function MasterData() {
                   <th>Khách hàng</th>
                   <th>Số hợp đồng</th>
                   <th>Người nhận</th>
+                  <th>Ghi chú</th>
                   <th>Nơi lưu trữ</th>
                   <th style={{ textAlign: 'center' }}>Thao tác</th>
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
-                  <tr><td colSpan="7" style={{ textAlign: 'center' }}>Đang tải...</td></tr>
+                  <tr><td colSpan="8" style={{ textAlign: 'center' }}>Đang tải...</td></tr>
                 ) : filteredProjects.length === 0 ? (
-                  <tr><td colSpan="7" style={{ textAlign: 'center', color: 'var(--text-muted)' }}>Không tìm thấy dữ liệu</td></tr>
+                  <tr><td colSpan="8" style={{ textAlign: 'center', color: 'var(--text-muted)' }}>Không tìm thấy dữ liệu</td></tr>
                 ) : (
                   filteredProjects.map(p => (
                     <tr key={p.id} style={{ background: selectedIds.includes(p.id) ? 'var(--primary-light)' : (editingId === p.id ? '#eff6ff' : 'transparent') }}>
@@ -384,6 +402,7 @@ export default function MasterData() {
                       <td>{p.customerName}</td>
                       <td>{p.contractNumber}</td>
                       <td>{p.defaultReceiver}</td>
+                      <td style={{ color: '#ef4444', fontStyle: 'italic', maxWidth: '200px', whiteSpace: 'pre-wrap' }}>{p.note}</td>
                       <td>{p.storageLocation}</td>
                       <td style={{ textAlign: 'center' }}>
                         <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
